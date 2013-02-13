@@ -454,6 +454,10 @@ static const NSString* kGeoAltitudeKey = @"altitude";
     return screenshot_;
 }
 
+- (void)quit {
+    [self performSelectorOnMainThread:@selector(quitBrowser) withObject:nil waitUntilDone:YES];
+}
+
 - (NSString *)URL {
   return [self jsEval:@"window.location.href"];
 }
@@ -568,6 +572,17 @@ static const NSString* kGeoAltitudeKey = @"altitude";
     // retain the screenshot for webdriver
     [screenshot_ release];
     screenshot_ = [viewImage retain];
+}
+
+- (void)quitBrowser {
+    NSLog(@"quitBrowser");
+    // stop the webview
+    [self.webView setDelegate:nil];
+    [self.webView stopLoading];
+    
+    // Reset
+    [self.webView release];
+    [[MainViewController sharedInstance] resetWebView];
 }
 
 // Finds out if browser connection is alive

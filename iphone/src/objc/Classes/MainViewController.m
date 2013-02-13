@@ -62,6 +62,30 @@ static MainViewController *singleton_;
   [statusLabel_ setText:status];
 }
 
+- (void)resetWebView {
+    NSLog(@"Before retainCount=%u", self.webView.retainCount);
+    
+    // Get frame from old webview
+    //CGRect framf = CGRectMake(0, -44, 320, 504);
+    CGRect frame = self.webView.frame;
+    
+    // destroy old webview
+    [webView removeFromSuperview];
+    [webView release];
+    NSLog(@"After retainCount=%u", self.webView.retainCount);
+    webView = nil;
+    
+    // create and assign new webview
+    self.webView = [[UIWebView alloc] initWithFrame:frame];
+    [self.view addSubview:self.webView];
+    [self.webView setScalesPageToFit:NO];
+    [self.webView loadHTMLString:@"" baseURL:nil];
+    
+    // After readding webView the other elements end up behind, bring them back
+    [self.view bringSubviewToFront:statusToolbar_];
+    [self.view bringSubviewToFront:statusLabel_];
+}
+
 + (MainViewController *)sharedInstance {
   return singleton_;
 }

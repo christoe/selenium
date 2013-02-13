@@ -27,6 +27,7 @@
 @interface MainViewController : UIViewController {
   WebViewController *webViewController;
   IBOutlet UILabel *statusLabel_;
+  IBOutlet UIToolbar *statusToolbar_;
   IBOutlet UIWebView *webView;
 }
 
@@ -36,6 +37,9 @@
 
 // Set the current status text.
 - (void)describeLastAction:(NSString *)status;
+
+// Reset the current webview component by destroying and creating a new
+- (void)resetWebView;
 
 // Access the singleton object.
 + (MainViewController *)sharedInstance;

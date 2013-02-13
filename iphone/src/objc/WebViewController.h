@@ -80,6 +80,8 @@
 // Get a screenshot of the page we've loaded
 - (UIImage *)screenshot;
 
+- (void)quit;
+
 - (void)clickOnPageElementAt:(CGPoint)point;
 
 // Calls the same on the main view controller.
@@ -93,6 +95,9 @@
 
 // get ss
 - (void)getFullPageScreenShot;
+
+// reset state by recycling UIWebView
+- (void)quitBrowser;
 
 // Check if browser connection is alive
 - (NSNumber *)isBrowserOnline;

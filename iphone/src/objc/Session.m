@@ -131,9 +131,12 @@ static NSString* const SESSION_STORAGE = @"sessionStorage";
                           withName:@"orientation"];
   
   // switch to window
-  [self setResourceToViewMethodGET:NULL
-                              POST:@selector(window:)
-                          withName:@"window"];
+  [self setResource:[WebDriverResource resourceWithTarget:[self viewController]
+                                                GETAction:NULL
+                                               POSTAction:@selector(window:)
+                                                PUTAction:NULL
+                                             DELETEAction:@selector(quit)]
+           withName:@"window"];
 
   // HTML5 Local WebStorage
   [self setResource:[Storage storageWithType:LOCAL_STORAGE]
